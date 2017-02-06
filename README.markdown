@@ -8,7 +8,7 @@ If you're a computer science student who needs to learn this stuff for exams -- 
 
 The goal of this project is to **explain how algorithms work**. The focus is on clarity and readability of the code, not on making a reusable library that you can drop into your own projects. That said, most of the code should be ready for production use but you may need to tweak it to fit into your own codebase.
 
-All code is compatible with **Xcode 7.3** and **Swift 2.2**. We'll keep this updated with the latest version of Swift.
+Most code is compatible with **Xcode 8.2** and **Swift 3**. We'll keep this updated with the latest version of Swift.
 
 This is a work in progress. More algorithms will be added soon. :-)
 
@@ -51,13 +51,15 @@ If you're new to algorithms and data structures, here are a few good ones to sta
 - [Selection Sampling](Selection Sampling/). Randomly choose a bunch of items from a collection.
 - [Union-Find](Union-Find/). Keeps track of disjoint sets and lets you quickly merge them.
 
+
 ### String Search
 
 - [Brute-Force String Search](Brute-Force String Search/). A naive method.
 - [Boyer-Moore](Boyer-Moore/). A fast method to search for substrings. It skips ahead based on a look-up table, to avoid looking at every character in the text.
 - Knuth-Morris-Pratt
-- Rabin-Karp
+- [Rabin-Karp](Rabin-Karp/)  Faster search by using hashing.
 - [Longest Common Subsequence](Longest Common Subsequence/). Find the longest sequence of characters that appear in the same order in both strings.
+- [Z-Algorithm](Z-Algorithm/). Finds all instances of a pattern in a String, and returns the indexes of where the pattern starts within the String.
 
 ### Sorting
 
@@ -130,6 +132,7 @@ Most of the time using just the built-in `Array`, `Dictionary`, and `Set` types 
 - [Bit Set](Bit Set/). A fixed-size sequence of *n* bits.
 - [Fixed Size Array](Fixed Size Array/). When you know beforehand how large your data will be, it might be more efficient to use an old-fashioned array with a fixed size.
 - [Ordered Array](Ordered Array/). An array that is always sorted.
+- [Rootish Array Stack](Rootish Array Stack/). A space and time efficient variation on Swift arrays.
 
 ### Queues
 
@@ -142,7 +145,7 @@ Most of the time using just the built-in `Array`, `Dictionary`, and `Set` types 
 ### Lists
 
 - [Linked List](Linked List/). A sequence of data items connected through links. Covers both singly and doubly linked lists.
-- Skip List
+- [Skip-List](Skip-List/). Skip List is a probablistic data-structure with same logarithmic time bound and efficiency as AVL/ or Red-Black tree and provides a clever compromise to efficiently support search and update operations.
 
 ### Trees
 
@@ -156,7 +159,7 @@ Most of the time using just the built-in `Array`, `Dictionary`, and `Set` types 
 - kd-Tree
 - [Heap](Heap/). A binary tree stored in an array, so it doesn't use pointers. Makes a great priority queue.
 - Fibonacci Heap
-- Trie
+- [Trie](Trie/). A special type of tree used to store associative data structures.
 - [B-Tree](B-Tree/). A self-balancing search tree, in which nodes can have more than two children.
 
 ### Hashing
@@ -189,6 +192,7 @@ A lot of software developer interview questions consist of algorithmic puzzles. 
 - [Fizz Buzz](Fizz Buzz/)
 - [Monty Hall Problem](Monty Hall Problem/)
 - [Finding Palindromes](Palindromes/)
+- [Dining Philosophers](DiningPhilosophers/)
 
 ## Learn more!
 
@@ -198,6 +202,7 @@ For more information, check out these great books:
 - [The Algorithm Design Manual](http://www.algorist.com) by Skiena
 - [Elements of Programming Interviews](http://elementsofprogramminginterviews.com) by Aziz, Lee, Prakash
 - [Algorithms](http://www.cs.princeton.edu/~rs/) by Sedgewick
+- [Grokking Algorithms](https://www.manning.com/books/grokking-algorithms) by Aditya Bhargava 
 
 The following books are available for free online:
 
@@ -205,6 +210,7 @@ The following books are available for free online:
 - [Algorithms, Etc.](http://jeffe.cs.illinois.edu/teaching/algorithms/) by Erickson
 - [Algorithms + Data Structures = Programs](http://www.ethoberon.ethz.ch/WirthPubl/AD.pdf) by Wirth
 - Algorithms and Data Structures: The Basic Toolbox by Mehlhorn and Sanders
+- [Open Data Structures](http://opendatastructures.org) by Pat Morin
 - [Wikibooks: Algorithms and Implementations](https://en.wikibooks.org/wiki/Algorithm_Implementation)
 
 Other algorithm repositories:
@@ -219,12 +225,14 @@ Other algorithm repositories:
 
 The Swift Algorithm Club was originally created by [Matthijs Hollemans](https://github.com/hollance).
 
-It is now maintained by [Chris Pilcher](https://github.com/chris-pilcher) and [Kelvin Lau](https://github.com/kelvinlauKL).
+It is now maintained by [Vincent Ngo](https://www.raywenderlich.com/u/jomoka) and [Kelvin Lau](https://github.com/kelvinlauKL).
 
 The Swift Algorithm Club is a collaborative effort from the [most algorithmic members](https://github.com/rwenderlich/swift-algorithm-club/graphs/contributors) of the [raywenderlich.com](https://www.raywenderlich.com) community. We're always looking for help - why not [join the club](How to Contribute.markdown)? :]
 
 ## License
 
 All content is licensed under the terms of the MIT open source license.
+
+By posting here, or by submitting any pull request through this forum, you agree that all content you submit or create, both code and text, is subject to this license.  Razeware, LLC, and others will have all the rights described in the license regarding this content.  The precise terms of this license may be found [here](https://github.com/raywenderlich/swift-algorithm-club/blob/master/LICENSE.txt).
 
 [![Build Status](https://travis-ci.org/raywenderlich/swift-algorithm-club.svg?branch=master)](https://travis-ci.org/raywenderlich/swift-algorithm-club)
