@@ -1,25 +1,25 @@
 /*
-  A Threaded Binary Tree.
-  Based on this club's Binary Search Tree implementation.
-
-  Each node stores a value and two children. The left child contains a smaller
-  value; the right a larger (or equal) value.
-
-  Any nodes that lack either a left or right child instead keep track of their
-  in-order predecessor and/or successor.
-
-  This tree allows duplicate elements (we break ties by defaulting right).
-
-  This tree does not automatically balance itself. To make sure it is balanced,
-  you should insert new values in randomized order, not in sorted order.
-*/
+ A Threaded Binary Tree.
+ Based on this club's Binary Search Tree implementation.
+ 
+ Each node stores a value and two children. The left child contains a smaller
+ value; the right a larger (or equal) value.
+ 
+ Any nodes that lack either a left or right child instead keep track of their
+ in-order predecessor and/or successor.
+ 
+ This tree allows duplicate elements (we break ties by defaulting right).
+ 
+ This tree does not automatically balance itself. To make sure it is balanced,
+ you should insert new values in randomized order, not in sorted order.
+ */
 public class ThreadedBinaryTree<T: Comparable> {
-  private(set) public var value: T
-  private(set) public var parent: ThreadedBinaryTree?
-  private(set) public var left: ThreadedBinaryTree?
-  private(set) public var right: ThreadedBinaryTree?
-  private(set) public var leftThread: ThreadedBinaryTree?
-  private(set) public var rightThread: ThreadedBinaryTree?
+  fileprivate(set) public var value: T
+  fileprivate(set) public var parent: ThreadedBinaryTree?
+  fileprivate(set) public var left: ThreadedBinaryTree?
+  fileprivate(set) public var right: ThreadedBinaryTree?
+  fileprivate(set) public var leftThread: ThreadedBinaryTree?
+  fileprivate(set) public var rightThread: ThreadedBinaryTree?
 
   public init(value: T) {
     self.value = value
@@ -75,15 +75,15 @@ public class ThreadedBinaryTree<T: Comparable> {
 
 extension ThreadedBinaryTree {
   /*
-    Inserts a new element into the tree. You should only insert elements
-    at the root, to make to sure this remains a valid binary tree!
-    Performance: runs in O(h) time, where h is the height of the tree.
+  Inserts a new element into the tree. You should only insert elements
+  at the root, to make to sure this remains a valid binary tree!
+  Performance: runs in O(h) time, where h is the height of the tree.
   */
-  public func insert(value: T) {
+  public func insert(_ value: T) {
     insert(value, parent: self)
   }
 
-  private func insert(value: T, parent: ThreadedBinaryTree) {
+  fileprivate func insert(_ value: T, parent: ThreadedBinaryTree) {
     if value < self.value {
       if let left = left {
         left.insert(value, parent: left)
@@ -112,20 +112,20 @@ extension ThreadedBinaryTree {
 
 extension ThreadedBinaryTree {
   /*
-    Deletes the "highest" node with the specified value.
-
-    Returns the node that has replaced this removed one (or nil if this was a
-    leaf node). That is primarily useful for when you delete the root node, in
-    which case the tree gets a new root.
-
-    Performance: runs in O(h) time, where h is the height of the tree.
+  Deletes the "highest" node with the specified value.
+     
+  Returns the node that has replaced this removed one (or nil if this was a
+  leaf node). That is primarily useful for when you delete the root node, in
+  which case the tree gets a new root.
+     
+  Performance: runs in O(h) time, where h is the height of the tree.
   */
-  public func remove(value: T) -> ThreadedBinaryTree? {
+  @discardableResult public func remove(_ value: T) -> ThreadedBinaryTree? {
     return search(value)?.remove()
   }
 
   /*
-    Deletes "this" node from the tree.
+  Deletes "this" node from the tree.
   */
   public func remove() -> ThreadedBinaryTree? {
     let replacement: ThreadedBinaryTree?
@@ -168,7 +168,7 @@ extension ThreadedBinaryTree {
     return replacement
   }
 
-  private func removeNodeWithTwoChildren(left: ThreadedBinaryTree, _ right: ThreadedBinaryTree) -> ThreadedBinaryTree {
+  private func removeNodeWithTwoChildren(_ left: ThreadedBinaryTree, _ right: ThreadedBinaryTree) -> ThreadedBinaryTree {
     // This node has two children. It must be replaced by the smallest
     // child that is larger than this node's value, which is the leftmost
     // descendent of the right child.
@@ -176,7 +176,7 @@ extension ThreadedBinaryTree {
 
     // If this in-order successor has a right child of its own (it cannot
     // have a left child by definition), then that must take its place.
-    successor.remove()
+    _ = successor.remove()
 
     // Connect our left child with the new node.
     successor.left = left
@@ -196,7 +196,7 @@ extension ThreadedBinaryTree {
     return successor
   }
 
-  private func reconnectParentToNode(node: ThreadedBinaryTree?) {
+  private func reconnectParentToNode(_ node: ThreadedBinaryTree?) {
     if let parent = parent {
       if isLeftChild {
         parent.left = node
@@ -212,10 +212,10 @@ extension ThreadedBinaryTree {
 
 extension ThreadedBinaryTree {
   /*
-    Finds the "highest" node with the specified value.
-    Performance: runs in O(h) time, where h is the height of the tree.
+  Finds the "highest" node with the specified value.
+  Performance: runs in O(h) time, where h is the height of the tree.
   */
-  public func search(value: T) -> ThreadedBinaryTree? {
+  public func search(_ value: T) -> ThreadedBinaryTree? {
     var node: ThreadedBinaryTree? = self
     while case let n? = node {
       if value < n.value {
@@ -248,7 +248,7 @@ extension ThreadedBinaryTree {
   }
 
   /*
-    Returns the leftmost descendent. O(h) time.
+  Returns the leftmost descendent. O(h) time.
   */
   public func minimum() -> ThreadedBinaryTree {
     var node = self
@@ -259,7 +259,7 @@ extension ThreadedBinaryTree {
   }
 
   /*
-    Returns the rightmost descendent. O(h) time.
+  Returns the rightmost descendent. O(h) time.
   */
   public func maximum() -> ThreadedBinaryTree {
     var node = self
@@ -270,8 +270,8 @@ extension ThreadedBinaryTree {
   }
 
   /*
-    Calculates the depth of this node, i.e. the distance to the root.
-    Takes O(h) time.
+  Calculates the depth of this node, i.e. the distance to the root.
+  Takes O(h) time.
   */
   public func depth() -> Int {
     var node = self
@@ -284,8 +284,8 @@ extension ThreadedBinaryTree {
   }
 
   /*
-    Calculates the height of this node, i.e. the distance to the lowest leaf.
-    Since this looks at all children of this node, performance is O(n).
+  Calculates the height of this node, i.e. the distance to the lowest leaf.
+  Since this looks at all children of this node, performance is O(n).
   */
   public func height() -> Int {
     if isLeaf {
@@ -296,7 +296,7 @@ extension ThreadedBinaryTree {
   }
 
   /*
-    Finds the node whose value precedes our value in sorted order.
+  Finds the node whose value precedes our value in sorted order.
   */
   public func predecessor() -> ThreadedBinaryTree<T>? {
     if let left = left {
@@ -307,7 +307,7 @@ extension ThreadedBinaryTree {
   }
 
   /*
-    Finds the node whose value succeeds our value in sorted order.
+  Finds the node whose value succeeds our value in sorted order.
   */
   public func successor() -> ThreadedBinaryTree<T>? {
     if let right = right {
@@ -321,7 +321,7 @@ extension ThreadedBinaryTree {
 // MARK: - Traversal
 
 extension ThreadedBinaryTree {
-  public func traverseInOrderForward(@noescape visit: T -> Void) {
+  public func traverseInOrderForward(_ visit: (T) -> Void) {
     var n: ThreadedBinaryTree
     n = minimum()
     while true {
@@ -334,7 +334,7 @@ extension ThreadedBinaryTree {
     }
   }
 
-  public func traverseInOrderBackward(@noescape visit: T -> Void) {
+  public func traverseInOrderBackward(_ visit: (T) -> Void) {
     var n: ThreadedBinaryTree
     n = maximum()
     while true {
@@ -347,22 +347,22 @@ extension ThreadedBinaryTree {
     }
   }
 
-  public func traversePreOrder(@noescape visit: T -> Void) {
+  public func traversePreOrder(_ visit: (T) -> Void) {
     visit(value)
     left?.traversePreOrder(visit)
     right?.traversePreOrder(visit)
   }
 
-  public func traversePostOrder(@noescape visit: T -> Void) {
+  public func traversePostOrder(_ visit: (T) -> Void) {
     left?.traversePostOrder(visit)
     right?.traversePostOrder(visit)
     visit(value)
   }
 
   /*
-    Performs an in-order traversal and collects the results in an array.
+  Performs an in-order traversal and collects the results in an array.
   */
-  public func map(@noescape formula: T -> T) -> [T] {
+  public func map(formula: (T) -> T) -> [T] {
     var a = [T]()
     var n: ThreadedBinaryTree
     n = minimum()
@@ -382,9 +382,9 @@ extension ThreadedBinaryTree {
 
 extension ThreadedBinaryTree {
   /*
-    Is this threaded binary tree a valid binary search tree?
+  Is this threaded binary tree a valid binary search tree?
   */
-  public func isBST(minValue minValue: T, maxValue: T) -> Bool {
+  public func isBST(minValue: T, maxValue: T) -> Bool {
     if value < minValue || value > maxValue { return false }
     let leftBST = left?.isBST(minValue: minValue, maxValue: value) ?? true
     let rightBST = right?.isBST(minValue: value, maxValue: maxValue) ?? true
@@ -392,10 +392,10 @@ extension ThreadedBinaryTree {
   }
 
   /*
-    Is this binary tree properly threaded?
-    Either left or leftThread (but not both) must be nil (likewise for right).
-    The first and last nodes in the in-order traversal are exempt from this,
-    as the first has leftThread = nil, and the last has rightThread = nil.
+  Is this binary tree properly threaded?
+  Either left or leftThread (but not both) must be nil (likewise for right).
+  The first and last nodes in the in-order traversal are exempt from this,
+  as the first has leftThread = nil, and the last has rightThread = nil.
   */
   public func isThreaded() -> Bool {
     if left == nil && leftThread == nil {
